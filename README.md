@@ -29,15 +29,50 @@ Attributes
 * `node[:meetme_newrelic_plugin][:memcached][:path]` - path of unix socket (if memcached is using one)
 
 #### meetme-newrelic-plugin::mongodb
+
 * `node[:meetme_newrelic_plugin][:mongodb][:host]` - host mongodb instance is running on
 * `node[:meetme_newrelic_plugin][:mongodb][:port]` - port mongdb is listening on
+
+If you only have one host and one DB to monitor:
+
 * `node[:meetme_newrelic_plugin][:mongodb][:database]` - name of database to monitor
-* `node[:meetme_newrelic_plugin][:mongodb][:databag_name]` - name of databag that holds mongo config
-* `node[:meetme_newrelic_plugin][:mongodb][:databag_item_name]` - name of databag item for mongo config
-* `node[:meetme_newrelic_plugin][:mongodb][:admin_username_key]` - key for admin username
-* `node[:meetme_newrelic_plugin][:mongodb][:admin_password_key]` - key for admin password
-* `node[:meetme_newrelic_plugin][:mongodb][:db_username_key]` - key for db username
-* `node[:meetme_newrelic_plugin][:mongodb][:db_password_key]` - key for db password
+* `node[:meetme_newrelic_plugin][:mongodb][:admin_username]` - key for admin username
+* `node[:meetme_newrelic_plugin][:mongodb][:admin_password]` - key for admin password
+* `node[:meetme_newrelic_plugin][:mongodb][:db_username]` - key for db username
+* `node[:meetme_newrelic_plugin][:mongodb][:db_password]` - key for db password
+
+If you need to monitor multiples servers/databases:
+
+* `node[:meetme_newrelic_plugin][:mongodb][:admin_username]` - admin username
+* `node[:meetme_newrelic_plugin][:mongodb][:admin_password]` - admin password
+* `node[:meetme_newrelic_plugin][:mongodb][:servers]` - List of servers to monitor. Follow this format:
+
+```json
+"servers": [
+        {
+          "name": "production mongo server",
+          "host": "mongodb-prod",
+          "with_auth": false,
+          "databases": [
+            {
+              "name": "myapp",
+              "name": "myotherapp"
+            }
+          ]
+        },
+        {
+          "name": "staging mongo server",
+          "host": "mongodb-staging",
+          "with_auth": false,
+          "databases": [
+            {
+              "name": "myapp"
+            }
+          ]
+        },
+        {...}
+]
+```
 
 #### meetme-newrelic-plugin::nginx
 * `node[:meetme_newrelic_plugin][:nginx][:name]` - hostname nginx is running on
