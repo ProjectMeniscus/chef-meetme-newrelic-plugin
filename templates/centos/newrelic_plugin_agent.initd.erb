@@ -9,7 +9,7 @@
 . /etc/init.d/functions
 
 # Application
-APP="/usr/bin/newrelic_plugin_agent"
+APP="<%= default[:meetme_newrelic_plugin][:binary_path] %>/newrelic_plugin_agent"
 
 # Configuration dir
 CONFIG_DIR="/etc/newrelic"

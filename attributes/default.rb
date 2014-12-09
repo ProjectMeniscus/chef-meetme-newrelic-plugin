@@ -7,6 +7,12 @@ default[:meetme_newrelic_plugin][:run_dir] = "/var/run/newrelic"
 default[:meetme_newrelic_plugin][:user] = "newrelic"
 default[:meetme_newrelic_plugin][:group] = "root"
 
+case node['platform_family']
+when "rhel"	
+  default[:meetme_newrelic_plugin][:binary_path] = "/usr/bin"
+else
+  default[:meetme_newrelic_plugin][:binary_path] = "/usr/local/bin"
+end	
 default[:meetme_newrelic_plugin][:elasticsearch][:enable] = false
 default[:meetme_newrelic_plugin][:memcached][:enable] = false
 default[:meetme_newrelic_plugin][:mongodb][:enable] = false
