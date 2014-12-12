@@ -8,3 +8,5 @@ default[:meetme_newrelic_plugin][:mongodb][:admin_password] = "admin"
 default[:meetme_newrelic_plugin][:mongodb][:database] = "mydb"
 default[:meetme_newrelic_plugin][:mongodb][:db_username] = "user"
 default[:meetme_newrelic_plugin][:mongodb][:db_password] = "user"
+
+default[:meetme_newrelic_plugin][:mongodb][:servers] = []

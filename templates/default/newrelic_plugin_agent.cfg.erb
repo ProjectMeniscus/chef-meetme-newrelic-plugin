@@ -22,7 +22,8 @@ Application:
 <% end %>
 
 <% if node[:meetme_newrelic_plugin][:mongodb][:enable] %>
-  mongodb:  # Use when authentication is required
+  mongodb:
+  <% if node[:meetme_newrelic_plugin][:mongodb][:servers].length < 1 %>
     name: <%= node[:meetme_newrelic_plugin][:mongodb][:name] %>
     host: <%= node[:meetme_newrelic_plugin][:mongodb][:host] %>
     port: <%= node[:meetme_newrelic_plugin][:mongodb][:port] %>
@@ -32,6 +33,23 @@ Application:
       <%= node[:meetme_newrelic_plugin][:mongodb][:database] %>:
         username: "<%= node[:meetme_newrelic_plugin][:mongodb][:db_username] %>"
         password: "<%= node[:meetme_newrelic_plugin][:mongodb][:db_password] %>"
+  <% else %>
+  <% node[:meetme_newrelic_plugin][:mongodb][:servers].each do |server| %>
+    - name: <%= server["name"] %>
+      host: <%= server["host"] %>
+      port: <%= node[:meetme_newrelic_plugin][:mongodb][:port] %>
+    <% if server["auth"] %>
+      admin_username: "<%= server["admin_username"] %>"
+      admin_password: "<%= server["admin_password"] %>"
+    <% end %>
+      databases:
+    <% server['databases'].each do |db| %>
+        - <%= db['name'] %> 
+          <% if db['username'] %><%= "username: \"#{db['username']}\"" %><% end %>
+          <% if db['password'] %><%= "password: \"#{db['password']}\""%><% end %>
+    <% end %>
+  <% end %>
+  <% end %>
 <% end %>
 
 <% if node[:meetme_newrelic_plugin][:nginx][:enable] %>
