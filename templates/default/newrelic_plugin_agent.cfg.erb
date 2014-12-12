@@ -92,6 +92,17 @@ Application:
     <% unless node[:meetme_newrelic_plugin][:uwsgi][:path].nil?  %>path: <%= node[:meetme_newrelic_plugin][:uwsgi][:path] %><% end %>
 <% end %>
 
+<% if node[:meetme_newrelic_plugin][:haproxy][:enable] %>
+  haproxy:
+    name: <%= node[:meetme_newrelic_plugin][:haproxy][:name] %>
+    host: <%= node[:meetme_newrelic_plugin][:haproxy][:host] %>
+    port: <%= node[:meetme_newrelic_plugin][:haproxy][:port] %>
+    path: <%= node[:meetme_newrelic_plugin][:haproxy][:path] %>
+    scheme: <%= node[:meetme_newrelic_plugin][:haproxy][:scheme] %>
+    <% unless node[:meetme_newrelic_plugin][:haproxy][:verify_ssl_cert].nil?  %>verify_ssl_cert: <%= node[:meetme_newrelic_plugin][:haproxy][:verify_ssl_cert] %><% end %>
+<% end %>
+
+
 Daemon:
   user: <%= node[:meetme_newrelic_plugin][:user] %>
   pidfile: <%= node[:meetme_newrelic_plugin][:run_dir] %>/newrelic_plugin_agent.pid
